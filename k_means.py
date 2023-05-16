@@ -35,7 +35,7 @@ def k_means(data, num_centroids, kmeansplusplus = True):
 
     
     assignments  = assign_to_cluster(data, centroids)
-    for i in range(100): # max number of iteration = 100
+    for _ in range(250): # max number of iteration = 100
         #print(f"Intra distance after {i} iterations: {mean_intra_distance(data, assignments, centroids)}")
         centroids = update_centroids(data, assignments)
         new_assignments = assign_to_cluster(data, centroids)

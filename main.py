@@ -25,18 +25,19 @@ def evaluate(clusters, labels):
         print("\n")
     
 
-def clustering(kmeans_pp):
-    data = load_wine()
+def clustering(kmeans_pp, data):
     features, classes = data
     intra_class_variance = []
-    for i in range(100):
+    for i in range(250):
         assignments, centroids, error = k_means(features, 3, kmeans_pp)
         evaluate(assignments, classes)
         intra_class_variance.append(error)
-    print(f"Mean intra-class variance: {np.mean(intra_class_variance)}")
+    print(f"Mean intra-class variance: {np.mean(intra_class_var iance)}")
 
 if __name__=="__main__":
-    print("K-means++")
-    clustering(kmeans_pp=True)
-    #print("Forgy")
-    #clustering(kmeans_pp=False)
+    print("K-means++ Wine data set")
+    clustering(kmeans_pp=True, data=load_wine())
+    print("K-means++ Tools data set")
+    clustering(kmeans_pp=True, data=load_tools())
+    print("K-means++ 3rd data set")
+    clustering(kmeans_pp=True, data=load_3rddataset())
