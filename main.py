@@ -1,4 +1,5 @@
 from k_means import k_means
+from dbscan import dbscan, calculate_epsilon
 import pandas as pd
 import numpy as np
 
@@ -39,19 +40,35 @@ def evaluate(clusters, labels):
         print("\n")
     
 
-def clustering(kmeans_pp, data, num_clusters):
+def kmeans_clustering(data, num_clusters):
     features, classes = data
     intra_class_variance = []
-    for i in range(250):
-        assignments, centroids, error = k_means(features, num_clusters, kmeans_pp)
-        evaluate(assignments, classes)
+    for i in range(100):
+        assignments, centroids, error = k_means(features, num_clusters)
         intra_class_variance.append(error)
+    evaluate(assignments, classes)
     print(f"Mean intra-class variance: {np.mean(intra_class_variance)}")
 
+def dbscan_clustering(data):
+    features, classes = data
+    num_clusters = features.shape[1] # number of features
+    eps = calculate_epsilon(features, num_clusters)
+    assignments = dbscan(features, eps, num_clusters)
+    print(assignments)
+    #evaluate(assignments, classes)
+
+
 if __name__=="__main__":
-    print("K-means++ Wine data set")
-    clustering(kmeans_pp=True, data=load_wine(), num_clusters=3)
-    print("K-means++ Tools data set")
-    clustering(kmeans_pp=True, data=load_yeast(), num_clusters=10)
-    print("K-means++ 3rd data set")
-    clustering(kmeans_pp=True, data=load_ecoli(), num_clusters=8)
+    # print("K-means++ Wine data set")
+    # kmeans_clustering(data=load_wine(), num_clusters=3)
+    # print("K-means++ Yeast data set")
+    # kmeans_clustering(data=load_yeast(), num_clusters=10)
+    # print("K-means++ E-coli data set")
+    # kmeans_clustering(data=load_ecoli(), num_clusters=8)
+
+    print("DBSCAN Wine data set")
+    dbscan_clustering(data=load_wine())
+    print("DBSCAN Yeast data set")
+    dbscan_clustering(data=load_yeast())
+    print("DBSCAN E-coli data set")
+    dbscan_clustering(data=load_ecoli())
