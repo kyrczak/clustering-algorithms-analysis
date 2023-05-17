@@ -2,9 +2,9 @@ import numpy as np
 from sklearn.preprocessing import normalize
 
 
-
 def count_distance(a, b):
     return np.sqrt(np.sum((a - b)**2))
+
 
 def create_distance_matrix(data):
     distance_matrix = np.zeros((data.shape[0], data.shape[0]))
@@ -13,10 +13,12 @@ def create_distance_matrix(data):
             distance_matrix[i][j] = count_distance(data[i], data[j])
     return np.array(distance_matrix)
 
+
 def find_smallest_distance(distance_matrix):
     masked_matrix = np.ma.masked_equal(distance_matrix, 0)
     min_indices = np.where(masked_matrix == np.min(masked_matrix))[0]
     return min_indices
+
 
 def update_clusters(assignments, new_cluster, index):
     assignments[index] = new_cluster
@@ -29,6 +31,8 @@ def update_distance_matrix(distance_matrix, index):
     for i in range(distance_matrix.shape[0]):
         distance_matrix[i][index] = 0
         distance_matrix[index][i] = 0
+
+
 def hierarchical(data, clusters):
     assignments = np.arange(0, data.shape[0])
     current_clusters = len(np.unique(assignments))

@@ -72,7 +72,7 @@ def hierarchical_clustering(data, clusters):
     evaluate(assignments, classes)
 
 if __name__=="__main__":
-    print("Clustering Algorithms for 3 Datasets:")
+    print("Clustering Algorithms for 3 Datasets:\n")
     # print("K-means++ Wine data set")
     # kmeans_clustering(data=load_wine(), num_clusters=3)
     # print("K-means++ Yeast data set")
