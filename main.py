@@ -1,5 +1,8 @@
+from matplotlib import pyplot as plt
+
 from k_means import k_means
 from dbscan import dbscan, calculate_epsilon
+from hierarchical import  hierarchical
 import pandas as pd
 import numpy as np
 
@@ -63,6 +66,11 @@ def evaluate_dbscane(assignments, classes):
             print(f"Num of {label_type}: {np.sum(labels_in_cluster==label_type)}")
         print("\n")
 
+def hierarchical_clustering(data, clusters):
+    features, classes = data
+    assignments = hierarchical(features, clusters)
+    evaluate(assignments, classes)
+
 if __name__=="__main__":
     # print("K-means++ Wine data set")
     # kmeans_clustering(data=load_wine(), num_clusters=3)
@@ -71,9 +79,17 @@ if __name__=="__main__":
     # print("K-means++ E-coli data set")
     # kmeans_clustering(data=load_ecoli(), num_clusters=8)
 
-    print("DBSCAN Wine data set")
-    dbscan_clustering(data=load_wine(),eps = 425)
+    # print("DBSCAN Wine data set")
+    # dbscan_clustering(data=load_wine(),eps = 425)
     # print("DBSCAN Yeast data set")
     # dbscan_clustering(data=load_yeast(), eps = 0.5)
     # print("DBSCAN E-coli data set")
     # dbscan_clustering(data=load_ecoli(), eps = 0.53)
+
+    #print("Hierarchical Wine data set")
+    #hierarchical_clustering(data=load_wine(), clusters=3)
+    #print("Hierarchical Yeast data set")
+    #hierarchical_clustering(data=load_yeast(), clusters=10)
+    print("Hierarchical E-coli data set")
+    hierarchical_clustering(data=load_ecoli(), clusters=8)
+
