@@ -1,4 +1,5 @@
 import numpy as np
+from matplotlib import pyplot as plt
 
 def calculate_distance(data, point):
     return np.sqrt(np.sum((data - point)**2, axis=1))
@@ -8,6 +9,9 @@ def calculate_epsilon(data, minpoints):
     distances = []
     for i in range(data.shape[0]):
         distances.append(np.sort(calculate_distance(data, data[i]))[minpoints])
+    plt.plot(np.sort(distances))
+    plt.show()
+    print(np.sort(distances)[minpoints])
     return np.sort(distances)[minpoints]
 
 def dbscan(data, eps, minpoints):
