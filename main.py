@@ -80,12 +80,12 @@ if __name__=="__main__":
     # print("K-means++ E-coli data set")
     # kmeans_clustering(data=load_ecoli(), num_clusters=8)
 
-    # print("DBSCAN Wine data set")
-    # dbscan_clustering(data=load_wine(),eps = 425)
-    # print("DBSCAN Yeast data set")
-    # dbscan_clustering(data=load_yeast(), eps = 0.5)
-    # print("DBSCAN E-coli data set")
-    # dbscan_clustering(data=load_ecoli(), eps = 0.53)
+    print("DBSCAN Wine data set")
+    dbscan_clustering(data=load_wine(),eps = 425)
+    print("DBSCAN Yeast data set")
+    dbscan_clustering(data=load_yeast(), eps = 0.65)
+    print("DBSCAN E-coli data set")
+    dbscan_clustering(data=load_ecoli(), eps = 0.53)
 
     # print("Hierarchical Wine data set")
     # hierarchical_clustering(data=load_wine(), clusters=3)
