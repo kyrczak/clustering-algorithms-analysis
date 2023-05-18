@@ -16,8 +16,9 @@ def create_distance_matrix(data):
 
 def find_smallest_distance(distance_matrix):
     masked_matrix = np.ma.masked_equal(distance_matrix, 0)
-    min_indices = np.where(masked_matrix == np.min(masked_matrix))[0]
-    return min_indices
+    #min_indices = np.where(masked_matrix == np.min(masked_matrix))[0] # ZGLITCHOWANE
+    min_value_index = np.unravel_index(np.argmin(masked_matrix), masked_matrix.shape)
+    return min_value_index
 
 
 def update_clusters(assignments, new_cluster, index):
