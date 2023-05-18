@@ -27,13 +27,6 @@ def load_ecoli():
     features = data.drop(["class", "name"], axis=1).to_numpy()
     return features, classes
 
-def load_iris():
-    data = pd.read_csv("data/iris.data", names=["sepal_length", "sepal_width", "petal_length", "petal_width", "class"])
-    #print(data)
-    classes = data["class"].to_numpy()
-    features = data.drop("class", axis=1).to_numpy()
-    return features, classes
-
 def evaluate(clusters, labels):
     for cluster in np.unique(clusters):
         labels_in_cluster = labels[clusters==cluster]
@@ -80,12 +73,12 @@ if __name__=="__main__":
     # print("K-means++ E-coli data set")
     # kmeans_clustering(data=load_ecoli(), num_clusters=8)
 
-    print("DBSCAN Wine data set")
-    dbscan_clustering(data=load_wine(),eps = 425)
-    print("DBSCAN Yeast data set")
-    dbscan_clustering(data=load_yeast(), eps = 0.65)
-    print("DBSCAN E-coli data set")
-    dbscan_clustering(data=load_ecoli(), eps = 0.53)
+    # print("DBSCAN Wine data set")
+    # dbscan_clustering(data=load_wine(),eps = 425)
+    # print("DBSCAN Yeast data set")
+    # dbscan_clustering(data=load_yeast(), eps = 0.65)
+    # print("DBSCAN E-coli data set")
+    # dbscan_clustering(data=load_ecoli(), eps = 0.53)
 
     # print("Hierarchical Wine data set")
     # hierarchical_clustering(data=load_wine(), clusters=3)
