@@ -14,7 +14,8 @@ def load_wine():
     #print(data)
     classes = data["class"].to_numpy()
     features = data.drop("class", axis=1).to_numpy()
-    return features, classes
+    weights = generate_weights(data)
+    return features, classes, weights
 
 
 def load_yeast():
@@ -22,7 +23,9 @@ def load_yeast():
     #print(data)
     classes = data["class"].to_numpy()
     features = data.drop(["class", "name"], axis=1).to_numpy()
-    return features, classes
+    weight_data = data.drop(["name"], axis=1)
+    weights = generate_weights(weight_data)
+    return features, classes, weights
 
 
 def load_ecoli():
@@ -30,7 +33,22 @@ def load_ecoli():
     #print(data)
     classes = data["class"].to_numpy()
     features = data.drop(["class", "name"], axis=1).to_numpy()
-    return features, classes
+    weight_data = data.drop(["name"], axis=1)
+    weights = generate_weights(weight_data)
+    return features, classes, weights
+
+
+def generate_weights(data):
+    classes = data['class'].unique()
+    feature_weights = {}
+    feature_diffs = data.groupby('class').max().sub(data.groupby('class').min())
+    min_diffs = feature_diffs.min()
+    # Przypisz największą wagę dla cechy o najmniejszej różnicy
+    max_weight = 1.0
+    for feature in min_diffs.index:
+        feature_weights[feature] = max_weight
+        max_weight -= 1 / len(min_diffs)
+    return list(feature_weights.values())
 
 
 def evaluate(clusters, labels):
@@ -64,7 +82,7 @@ def plot_clusters(data, models, results):
 
 
 def kmeans_clustering(data, num_clusters):
-    features, classes = data
+    features, classes, weights = data
     intra_class_variance = []
     for i in range(100):
         assignments, centroids, error = k_means(features, num_clusters)
@@ -75,7 +93,7 @@ def kmeans_clustering(data, num_clusters):
 
 
 def dbscan_clustering(data, eps):
-    features, classes = data
+    features, classes, weights = data
     num_of_points = features.shape[1] # number of features
     assignments = dbscan(features, eps, num_of_points)
     evaluate(assignments, classes)
@@ -83,8 +101,8 @@ def dbscan_clustering(data, eps):
 
 
 def hierarchical_clustering(data, clusters):
-    features, classes = data
-    assignments = hierarchical(features, clusters)
+    features, classes, weights = data
+    assignments = hierarchical(features, clusters, weights)
     evaluate(assignments, classes)
     plot_clusters(features, classes, assignments)
 

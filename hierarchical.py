@@ -2,21 +2,22 @@ import numpy as np
 from sklearn.preprocessing import normalize
 
 
-def count_distance(a, b):
-    return np.sqrt(np.sum((a - b)**2))
+def count_distance(a, b, weights):
+    a_weighted = np.multiply(a, weights)
+    b_weighted = np.multiply(b, weights)
+    return np.sqrt(np.sum((a_weighted - b_weighted)**2))
 
 
-def create_distance_matrix(data):
+def create_distance_matrix(data, weights):
     distance_matrix = np.zeros((data.shape[0], data.shape[0]))
     for i in range(data.shape[0]):
         for j in range(data.shape[0]):
-            distance_matrix[i][j] = count_distance(data[i], data[j])
+            distance_matrix[i][j] = count_distance(data[i], data[j], weights)
     return np.array(distance_matrix)
 
 
 def find_smallest_distance(distance_matrix):
     masked_matrix = np.ma.masked_equal(distance_matrix, 0)
-    #min_indices = np.where(masked_matrix == np.min(masked_matrix))[0] # ZGLITCHOWANE
     min_value_index = np.unravel_index(np.argmin(masked_matrix), masked_matrix.shape)
     return min_value_index
 
@@ -34,11 +35,11 @@ def update_distance_matrix(distance_matrix, index):
         distance_matrix[index][i] = 0
 
 
-def hierarchical(data, clusters):
+def hierarchical(data, clusters, weights):
     assignments = np.arange(0, data.shape[0])
     current_clusters = len(np.unique(assignments))
     data_scaled = normalize(data)
-    distance_matrix = create_distance_matrix(data_scaled)
+    distance_matrix = create_distance_matrix(data_scaled, weights)
     while current_clusters > clusters:
         x, y = find_smallest_distance(distance_matrix)
         update_clusters(assignments, min(x, y), max(x, y))
