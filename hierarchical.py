@@ -35,6 +35,15 @@ def update_distance_matrix(distance_matrix, index):
         distance_matrix[index][i] = 0
 
 
+
+def fix_indexes(assignments):
+    unique_indexes = list(set(assignments))
+    x = len(unique_indexes)
+    indexes = {index: i for i, index in enumerate(unique_indexes)}
+    changed_indexes = [indexes[index] for index in assignments]
+    return changed_indexes
+
+
 def hierarchical(data, clusters, weights):
     assignments = np.arange(0, data.shape[0])
     current_clusters = len(np.unique(assignments))
@@ -45,4 +54,5 @@ def hierarchical(data, clusters, weights):
         update_clusters(assignments, min(x, y), max(x, y))
         update_distance_matrix(distance_matrix, max(x, y))
         current_clusters = len(np.unique(assignments))
+    assignments = fix_indexes(assignments)
     return assignments
