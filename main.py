@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 import matplotlib.colors as colors
 from sklearn.decomposition import PCA
 from sklearn.preprocessing import LabelEncoder
+from sklearn import metrics
 import pandas as pd
 import numpy as np
 
@@ -88,6 +89,8 @@ def kmeans_clustering(data, num_clusters):
         assignments, centroids, error = k_means(features, num_clusters)
         intra_class_variance.append(error)
     evaluate(assignments, classes)
+    ami = metrics.adjusted_mutual_info_score(classes, assignments)
+    print("Adjusted Mutual Information:", ami, "\n")
     plot_clusters(features, classes, assignments)
     print(f"Mean intra-class variance: {np.mean(intra_class_variance)}")
 
@@ -97,6 +100,8 @@ def dbscan_clustering(data, eps):
     num_of_points = features.shape[1] # number of features
     assignments = dbscan(features, eps, num_of_points)
     evaluate(assignments, classes)
+    ami = metrics.adjusted_mutual_info_score(classes, assignments)
+    print("Adjusted Mutual Information:", ami, "\n")
     plot_clusters(features, classes, assignments)
 
 
@@ -104,29 +109,31 @@ def hierarchical_clustering(data, clusters):
     features, classes, weights = data
     assignments = hierarchical(features, clusters, weights)
     evaluate(assignments, classes)
+    ami = metrics.adjusted_mutual_info_score(classes, assignments)
+    print("Adjusted Mutual Information:", ami, "\n")
     plot_clusters(features, classes, assignments)
 
 
 if __name__=="__main__":
     print("Clustering Algorithms for 3 Datasets:\n")
-    print("K-means++ Wine data set")
-    kmeans_clustering(data=load_wine(), num_clusters=3)
-    print("K-means++ Yeast data set")
-    kmeans_clustering(data=load_yeast(), num_clusters=10)
-    print("K-means++ E-coli data set")
-    kmeans_clustering(data=load_ecoli(), num_clusters=8)
+    # print("K-means++ Wine data set")
+    # kmeans_clustering(data=load_wine(), num_clusters=3)
+    # print("K-means++ Yeast data set")
+    # kmeans_clustering(data=load_yeast(), num_clusters=10)
+    # print("K-means++ E-coli data set")
+    # kmeans_clustering(data=load_ecoli(), num_clusters=8)
 
-    print("DBSCAN Wine data set")
-    dbscan_clustering(data=load_wine(),eps = 425)
-    print("DBSCAN Yeast data set")
-    dbscan_clustering(data=load_yeast(), eps = 0.52)
-    print("DBSCAN E-coli data set")
-    dbscan_clustering(data=load_ecoli(), eps = 0.53)
+    # print("DBSCAN Wine data set")
+    # dbscan_clustering(data=load_wine(),eps = 425)
+    # print("DBSCAN Yeast data set")
+    # dbscan_clustering(data=load_yeast(), eps = 0.52)
+    # print("DBSCAN E-coli data set")
+    # dbscan_clustering(data=load_ecoli(), eps = 0.53)
 
-    print("Hierarchical Wine data set")
-    hierarchical_clustering(data=load_wine(), clusters=3)
-    print("Hierarchical Yeast data set")
-    hierarchical_clustering(data=load_yeast(), clusters=10)
-    print("Hierarchical E-coli data set")
-    hierarchical_clustering(data=load_ecoli(), clusters=8)
+    # print("Hierarchical Wine data set")
+    # hierarchical_clustering(data=load_wine(), clusters=3)
+    # print("Hierarchical Yeast data set")
+    # hierarchical_clustering(data=load_yeast(), clusters=10)
+    # print("Hierarchical E-coli data set")
+    # hierarchical_clustering(data=load_ecoli(), clusters=8)
 
