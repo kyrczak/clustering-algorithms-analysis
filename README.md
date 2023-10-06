@@ -1,5 +1,5 @@
 # clustering-algorithms-analysis
-Clustering Algorithms Analysis is a an artifical inteligence project with a goal of implementing and analyzing three major data clustering algorithms.
+Clustering Algorithms Analysis is a an artifical intelligence project with a goal of implementing and analyzing three major data clustering algorithms.
 
 The algorithms used in the project are:
 - DB Scan
