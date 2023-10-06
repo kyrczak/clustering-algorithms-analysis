@@ -1,5 +1,5 @@
-# clustering_project
-Clustering project is a an artifical inteligence project with a goal of implementing and analyzing three major data clustering algorithms.
+# clustering-algorithms-analysis
+Clustering Algorithms Analysis is a an artifical inteligence project with a goal of implementing and analyzing three major data clustering algorithms.
 
 The algorithms used in the project are:
 - DB Scan
