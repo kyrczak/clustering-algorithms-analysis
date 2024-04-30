@@ -11,4 +11,10 @@ For analyzing we have used following data sets:
 - [Yeast dataset](https://archive.ics.uci.edu/dataset/110/yeast)
 - [E-coli dataset](https://archive.ics.uci.edu/dataset/39/ecoli)
 
-Libraries used: `numpy`,`sklearn`, `pandas` and `matplotlib`. 
+Libraries used: 
+ - `numpy`
+ - `sklearn`
+ - `pandas`
+ - `matplotlib`
+
+The report containing the analysis of clustring algorithms in polish version is available in `Clustering_Project.pdf` file.
